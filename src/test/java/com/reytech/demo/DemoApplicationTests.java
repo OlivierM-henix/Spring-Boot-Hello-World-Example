@@ -8,6 +8,7 @@ class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Ceci n'est pas une pipe");
 	}
 
 }
