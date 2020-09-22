@@ -48,61 +48,7 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-                		<groupId>org.apache.maven.plugins</groupId>
-               			<artifactId>maven-pmd-plugin</artifactId>
-                		<version>3.11.0</version>
-				 <executions>
-					<execution>
-					    <goals>
-						<goal>cpd</goal>
-					    </goals>
-					</execution>
-				</executions>
-           		 </plugin>
-			
-			<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.3</version>
-                <executions>
-                    <execution>
-                        <id>noFailOnError</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                          
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-			
-		<plugin>
-   <groupId>org.apache.maven.plugins</groupId>
-   <artifactId>maven-checkstyle-plugin</artifactId>
-   <version>3.1.1</version>
-   <configuration>
-     <configLocation>checkstyle.xml</configLocation>
-     <encoding>UTF-8</encoding>
-     <consoleOutput>true</consoleOutput>
-     <failsOnError>true</failsOnError>
-     <linkXRef>false</linkXRef>
-   </configuration>
-   <executions>
-     <execution>
-       <id>validate</id>
-       <phase>validate</phase>
-       <goals>
-         <goal>check</goal>
-       </goals>
-     </execution>
-   </executions>
- </plugin>
-			
+<plugins>
 			<plugin>
 			    <groupId>org.jacoco</groupId>
 			    <artifactId>jacoco-maven-plugin</artifactId>
