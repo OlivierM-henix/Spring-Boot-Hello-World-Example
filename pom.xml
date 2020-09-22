@@ -75,9 +75,7 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                            <failOnError>false</failOnError>
-                            <xmlOutput>true</xmlOutput>
-                            <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+                          
                         </configuration>
                     </execution>
                 </executions>
