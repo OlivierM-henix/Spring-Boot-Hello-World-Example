@@ -57,7 +57,7 @@
 				 <executions>
 					<execution>
 					    <goals>
-						<goal>pmd:cpd</goal>
+						<goal>cpd</goal>
 					    </goals>
 					</execution>
 				</executions>
