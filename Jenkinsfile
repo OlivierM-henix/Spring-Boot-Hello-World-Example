@@ -128,12 +128,12 @@ pipeline {
 		stage('Checkout Selenium') {
             steps {
                 echo "-=- Checkout project -=-"
-                git url: 'https://github.com/zaba221/example-springboot-automation-test-selenium.git'
+                git url: 'https://github.com/OlivierM-henix/example-springboot-automation-test-selenium.git'
             }
         }
         stage('Selenium Test Job') {
             steps {
-                 build job: 'projet_selenium' 
+                 build job: 'projet_selenium'
             }
 		}
 	}
