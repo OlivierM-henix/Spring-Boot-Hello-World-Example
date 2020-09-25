@@ -57,23 +57,6 @@ pipeline {
             }
           }
         }	
-		stage('Quality Analysis Sonarqube') {
-            environment {
-                SCANNER_HOME = tool 'mon_sonarqube_scanner'
-                ORGANIZATION = "EQL"
-                PROJECT_NAME = "SpringBootProject_2"
-            }
-            steps {
-                withSonarQubeEnv('mon_sonar') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner \
-                    -Dsonar.java.sources=src \
-                    -Dsonar.java.binaries=target \
-                    -Dsonar.projectKey=$PROJECT_NAME \
-                    -Dsonar.language=java \
-                    -Dsonar.sourceEncoding=UTF-8'''
-                }
-            }
-        }
    		stage('Continuous delivery') {
 			steps {
              script {
