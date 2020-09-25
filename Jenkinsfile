@@ -74,9 +74,8 @@ pipeline {
                 }
             }
         }
-    }
-	        stage('Continuous delivery') {
-          steps {
+   		stage('Continuous delivery') {
+			steps {
              script {
               sshPublisher(
                continueOnError: false, failOnError: true,
@@ -101,7 +100,7 @@ pipeline {
              }
           }
         } 
-         stage('Continuous deployment') {
+        stage('Continuous deployment') {
           steps {
              script {
               sshPublisher(
@@ -123,8 +122,7 @@ pipeline {
                   )
                  ])
                ])
-             }
-          }
+            }
         }
-	stages
+    }
 }
