@@ -90,7 +90,7 @@ pipeline {
                    remoteDirectory: "/tmp",
                    execCommand: """
                     sudo mv /tmp/demo-0.0.1-SNAPSHOT.jar /home/vagrant/project;
-                    cd project;
+                    cd projet;
                     sudo docker build -t springbootapp1 . ;
                     docker tag springbootapp1 terranersatz/springbootapp1:1.0
                     docker push terranersatz/springbootapp1:1.0 """
@@ -125,5 +125,16 @@ pipeline {
             }
         }
     }
-}
+		stage('Checkout Selenium') {
+            steps {
+                echo "-=- Checkout project -=-"
+                git url: 'https://github.com/zaba221/example-springboot-automation-test-selenium.git'
+            }
+        }
+        stage('Selenium Test Job') {
+            steps {
+                 build job: 'projet_selenium' 
+            }
+		}
+	}
 }
