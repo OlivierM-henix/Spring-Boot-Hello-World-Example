@@ -75,4 +75,55 @@ pipeline {
             }
         }
     }
+	        stage('Continuous delivery') {
+          steps {
+             script {
+              sshPublisher(
+               continueOnError: false, failOnError: true,
+               publishers: [
+                sshPublisherDesc(
+                 configName: "docker-host",
+                 verbose: true,
+                 transfers: [
+                  sshTransfer(
+                   sourceFiles: "target/*.jar",
+                   removePrefix: "/target",
+                   remoteDirectory: "",
+                   execCommand: """
+                    sudo mv demo-0.0.1-SNAPSHOT.jar /home/vagrant/project;
+                    cd project;
+                    sudo docker build -t springbootapp1 . ;
+                    docker tag springbootapp1 babsmbaye/springbootapp1:1.0
+                    docker push terranersatz/springbootapp1:1.0 """
+                  )
+                 ])
+               ])
+             }
+          }
+        } 
+         stage('Continuous deployment') {
+          steps {
+             script {
+              sshPublisher(
+               continueOnError: false, failOnError: true,
+               publishers: [
+                sshPublisherDesc(
+                 configName: "docker-host",
+                 verbose: true,
+                 transfers: [
+                  sshTransfer(
+                   sourceFiles: "",
+                   removePrefix: "",
+                   remoteDirectory: "",
+                   execCommand: """
+                    sudo docker stop \$(docker ps -a -q);
+                    sudo docker rm \$(docker ps -a -q);
+                    sudo docker rmi -f \$(docker images -a -q);
+                    sudo docker run -d -p 8080:8080 terranersatz/springbootapp1:1.0; """
+                  )
+                 ])
+               ])
+             }
+          }
+        }
 }
