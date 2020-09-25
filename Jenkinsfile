@@ -86,14 +86,14 @@ pipeline {
                  verbose: true,
                  transfers: [
                   sshTransfer(
-                   sourceFiles: "target/*.jar",
-                   removePrefix: "/target",
-                   remoteDirectory: "",
+                   sourceFiles: "/var/lib/jenkins/.m2/repository/com/reytech/demo/0.0.1-SNAPSHOT/demo-0.0.1-SNAPSHOT.jar",
+                   removePrefix: "/var/lib/jenkins/.m2/repository/com/reytech/demo/0.0.1-SNAPSHOT/",
+                   remoteDirectory: "/tmp",
                    execCommand: """
-                    sudo mv demo-0.0.1-SNAPSHOT.jar /home/vagrant/project;
+                    sudo mv /tmp/demo-0.0.1-SNAPSHOT.jar /home/vagrant/project;
                     cd project;
                     sudo docker build -t springbootapp1 . ;
-                    docker tag springbootapp1 babsmbaye/springbootapp1:1.0
+                    docker tag springbootapp1 terranersatz/springbootapp1:1.0
                     docker push terranersatz/springbootapp1:1.0 """
                   )
                  ])
