@@ -68,15 +68,18 @@ pipeline {
                  verbose: true,
                  transfers: [
                   sshTransfer(
-                   sourceFiles: "/var/lib/jenkins/.m2/repository/com/reytech/demo/0.0.1-SNAPSHOT/demo-0.0.1-SNAPSHOT.jar",
-                   removePrefix: "/var/lib/jenkins/.m2/repository/com/reytech/demo/0.0.1-SNAPSHOT/",
+                   sourceFiles: "target/demo-0.0.1-SNAPSHOT.jar",
+                   removePrefix: "target",
                    remoteDirectory: "/tmp",
                    execCommand: """
-                    sudo mv /tmp/demo-0.0.1-SNAPSHOT.jar /home/vagrant/project;
-                    cd projet;
-                    sudo docker build -t springbootapp1 . ;
-                    docker tag springbootapp1 terranersatz/springbootapp1:1.0
-                    docker push terranersatz/springbootapp1:1.0 """
+                   	mv /tmp/demo-0.0.1-SNAPSHOT.jar /home/bargee/projet;
+			cd projet;
+			chmod +x demo-0.0.1-SNAPSHOT.jar;
+			docker build -t springboot .;
+			docker tag springboot terranersatz/springboot:1.0;
+			cat my_password.txt | docker login --username terranersatz --password-stdin;
+			docker push terranersatz/springboot:1.0;
+			docker logout; """
                   )
                  ])
                ])
@@ -98,10 +101,10 @@ pipeline {
                    removePrefix: "",
                    remoteDirectory: "",
                    execCommand: """
-                    sudo docker stop \$(docker ps -a -q);
-                    sudo docker rm \$(docker ps -a -q);
-                    sudo docker rmi -f \$(docker images -a -q);
-                    sudo docker run -d -p 8080:8080 terranersatz/springbootapp1:1.0; """
+                    docker stop \$(docker ps -a -q);
+                    docker rm \$(docker ps -a -q);
+                    docker rmi -f \$(docker images -a -q);
+                    docker run -d -p 8080:8080 terranersatz/springboot:1.0; """
                   )
                  ])
                ])
