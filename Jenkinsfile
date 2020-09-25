@@ -87,7 +87,7 @@ pipeline {
                   sshTransfer(
                    sourceFiles: "target/demo-0.0.1-SNAPSHOT.jar",
                    removePrefix: "target",
-                   remoteDirectory: "/tmp",
+                   remoteDirectory: "",
                    execCommand: """
                    	mv /tmp/demo-0.0.1-SNAPSHOT.jar /home/bargee/projet;
 			cd projet;
