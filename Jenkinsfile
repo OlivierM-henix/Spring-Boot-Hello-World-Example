@@ -64,7 +64,7 @@ pipeline {
                 PROJECT_NAME = "SpringBootProject_2"
             }
             steps {
-                withSonarQubeEnv('sonarqube') {
+                withSonarQubeEnv('mon_sonar') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner \
                     -Dsonar.java.sources=src \
                     -Dsonar.java.binaries=target \
