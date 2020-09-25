@@ -1,9 +1,8 @@
-
 pipeline {
     agent any
     
     tools {
-        maven 'localMaven'
+        maven 'mon_maven'
     }
     
     stages {
@@ -58,17 +57,21 @@ pipeline {
             }
           }
         }	
-
-
-       stage('Checkout Selenium') {
-            steps {
-                echo "-=- Checkout project -=-"
-                git url: 'https://github.com/zaba221/example-springboot-automation-test-selenium.git'
+		stage('Quality Analysis Sonarqube') {
+            environment {
+                SCANNER_HOME = tool 'mon_sonarqube_scanner'
+                ORGANIZATION = "EQL"
+                PROJECT_NAME = "SpringBootProject_2"
             }
-        }
-        stage('Selenium Test Job') {
             steps {
-                 build job: 'projet-selenium' 
+                withSonarQubeEnv('sonarqube') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner \
+                    -Dsonar.java.sources=src \
+                    -Dsonar.java.binaries=target \
+                    -Dsonar.projectKey=$PROJECT_NAME \
+                    -Dsonar.language=java \
+                    -Dsonar.sourceEncoding=UTF-8'''
+                }
             }
         }
     }
